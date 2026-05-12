@@ -1,0 +1,60 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/styles.css b/styles.css
+new file mode 100644
+index 0000000000000000000000000000000000000000..f9b23d6a4418f5eb969bca2fd54d8cb4cfbde4e8
+--- /dev/null
++++ b/styles.css
+@@ -0,0 +1,50 @@
++:root {
++  --bg: #ffffff;
++  --text: #111111;
++  --muted: #5a5a5a;
++  --line: #d7d7d7;
++  --accent: #000000;
++  --space: clamp(1rem, 3vw, 2rem);
++}
++* { box-sizing: border-box; }
++body {
++  margin: 0;
++  font-family: "EB Garamond", serif;
++  color: var(--text);
++  background: var(--bg);
++  line-height: 1.65;
++}
++.container { width: min(980px, 92%); margin: 0 auto; }
++.narrow { width: min(760px, 92%); }
++.site-header, .site-footer, .section { padding: calc(var(--space) * 2) 0; }
++.logo { width: min(260px, 65vw); display:block; margin: 2rem auto 1rem; }
++.top-contact { display:flex; gap:1rem; justify-content:flex-end; flex-wrap:wrap; font-size:0.95rem; }
++.supporting-text, .subtext, .subtle-text { text-align:center; color: var(--muted); margin: 0.2rem 0; }
++h1, h2 { font-weight: 500; letter-spacing: 0.02em; text-align:center; }
++h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1rem; }
++.hero p { max-width: 720px; margin: 0 auto 1rem; text-align:center; }
++.button {
++  display:inline-block; border:1px solid var(--accent); color:#fff; background:#000;
++  padding:0.7rem 1.2rem; text-decoration:none; font: inherit; cursor:pointer;
++}
++.button-outline { background:#fff; color:#000; }
++.hero .button { display:table; margin:1.25rem auto; }
++.divider { border-top: 1px solid var(--line); }
++form { display:grid; gap:1rem; }
++label, legend { font-size: 1.04rem; }
++input, select, textarea {
++  width:100%; margin-top:0.3rem; border:1px solid #bdbdbd; padding:0.6rem;
++  font: inherit; background:#fff;
++}
++fieldset { border:1px solid var(--line); padding:1rem; }
++.radio-row { display:flex; gap:1rem; flex-wrap:wrap; }
++.grid.two-col { display:grid; gap:1rem; }
++ol { padding-left:1.1rem; }
++#form-status { min-height: 1.2rem; margin:0; }
++#form-status.success { color: #1f5f2a; }
++#form-status.error { color: #8d1a1a; }
++a { color: inherit; }
++.about-actions { text-align:center; margin-top: 1.2rem; }
++@media (min-width: 760px) {
++  .grid.two-col { grid-template-columns: 1fr 1fr; }
++}
+ 
+EOF
+)
