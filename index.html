@@ -18,29 +18,27 @@
   </head>
   <body>
     <header class="site-header">
-      <div class="container">
-        <div class="top-contact" aria-label="Contact links">
-          <a href="https://instagram.com/glambysabina_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <span aria-hidden="true">◦</span> @glambysabina_
-          </a>
-          <a href="mailto:glambysabina@yahoo.com">glambysabina@yahoo.com</a>
-        </div>
-        <img src="assets/logo.jpeg" alt="Glam by Sabina logo" class="logo" />
+      <div class="container narrow header-inner">
+        <img src="./assets/logo.png" alt="Glam by Sabina logo" class="logo" />
         <p class="supporting-text">HAIR &amp; MAKEUP ARTIST</p>
-        <p class="subtext">Grand Junction, CO &amp; Surrounding Areas</p>
+        <p class="subtext">Grand Junction, Colorado &amp; Surrounding Areas</p>
       </div>
     </header>
 
     <main>
       <section class="hero section">
-        <div class="container">
-          <h1>Bridal glam, refined for your day.</h1>
-          <p>
-            Thank you for considering Glam by Sabina for your special day. Every bridal inquiry is personally
-            reviewed by Sabina to ensure availability, timing, location, and service fit before booking is accepted.
-          </p>
-          <a href="#inquiry-form" class="button">Begin Inquiry</a>
-          <p class="subtle-text">Serving Grand Junction, Colorado and surrounding areas.</p>
+        <div class="container narrow">
+          <div class="hero-panel">
+            <h1>Your bridal glam inquiry starts here.</h1>
+            <p>
+              Thank you for considering Glam by Sabina for your special day. Each inquiry is personally reviewed by
+              Sabina to confirm availability, timing, location, and service fit before booking is accepted.
+            </p>
+            <a href="#inquiry-form" class="button">Begin Inquiry</a>
+            <p class="subtle-text">
+              Bridal hair and makeup serving Grand Junction, Colorado and surrounding areas.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -48,145 +46,161 @@
         <div class="container narrow">
           <h2>Meet Sabina</h2>
           <p>
-            Sabina specializes in timeless bridal hair and makeup with a refined, soft-glam approach designed to
-            photograph beautifully and feel elevated in person. Each bridal experience is intentionally personalized to
-            create a calm, luxurious getting-ready experience for you and your bridal party.
+            Sabina creates timeless bridal hair and makeup with a refined soft-glam approach designed to photograph
+            beautifully and feel elevated in person. Each bridal experience is intentionally personalized to create a
+            calm, polished getting-ready experience for the bride and bridal party.
           </p>
           <div class="about-actions">
-            <a class="button button-outline" href="https://instagram.com/glambysabina_" target="_blank" rel="noopener noreferrer">
-              Visit Instagram
+            <a class="text-link" href="https://instagram.com/glambysabina_" target="_blank" rel="noopener noreferrer">
+              View Instagram @glambysabina_
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section divider">
+        <div class="container narrow">
+          <div class="brand-strip">
+            <h3>Soft glam, styled with intention.</h3>
+            <p>
+              Bridal hair and makeup designed to photograph beautifully, feel effortless in person, and support a calm
+              getting-ready experience.
+            </p>
+            <div class="strip-links">
+              <a class="text-link" href="https://instagram.com/glambysabina_" target="_blank" rel="noopener noreferrer">View Instagram</a>
+              <a class="text-link" href="#inquiry-form">Begin Inquiry</a>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="section divider" id="inquiry-form">
         <div class="container narrow">
-          <h2>Bridal Inquiry</h2>
-          <form id="bridal-inquiry-form" novalidate>
-            <div class="grid two-col">
-              <label>Full name*
-                <input type="text" name="full_name" required />
-              </label>
-              <label>Email*
-                <input type="email" name="email" required />
-              </label>
-              <label>Instagram handle
-                <input type="text" name="instagram" placeholder="@username" />
-              </label>
-              <label>Event date*
-                <input type="date" name="event_date" required />
-              </label>
-              <label>Event location / venue*
-                <input type="text" name="venue" required />
-              </label>
-              <label>Getting ready location (if different)
-                <input type="text" name="getting_ready_location" />
-              </label>
-            </div>
-
-            <fieldset>
-              <legend>Service requested*</legend>
-              <select name="service_type" required>
-                <option value="">Select one</option>
-                <option>Bride makeup</option>
-                <option>Bride hair</option>
-                <option>Bride hair and makeup</option>
-                <option>Bridesmaid / other makeup</option>
-                <option>Bridesmaid / other hair</option>
-                <option>Flower girl</option>
-                <option>Trial</option>
-                <option>Other</option>
-              </select>
-            </fieldset>
-
-            <div class="grid two-col">
-              <label>Number of people needing makeup
-                <input type="number" name="makeup_count" min="0" />
-              </label>
-              <label>Number of people needing hair
-                <input type="number" name="hair_count" min="0" />
-              </label>
-            </div>
-
-            <fieldset>
-              <legend>Are hair extensions needed?</legend>
-              <div class="radio-row">
-                <label><input type="radio" name="extensions_needed" value="Yes" /> Yes</label>
-                <label><input type="radio" name="extensions_needed" value="No" /> No</label>
-                <label><input type="radio" name="extensions_needed" value="Not sure" /> Not sure</label>
+          <div class="form-card">
+            <h2>Bridal Inquiry</h2>
+            <form id="bridal-inquiry-form" novalidate>
+              <div class="grid two-col">
+                <label>Full name*
+                  <input type="text" name="full_name" required />
+                </label>
+                <label>Email*
+                  <input type="email" name="email" required />
+                </label>
+                <label>Instagram handle
+                  <input type="text" name="instagram" placeholder="@username" />
+                </label>
+                <label>Event date*
+                  <input type="date" name="event_date" required />
+                </label>
+                <label>Event location / venue*
+                  <input type="text" name="venue" required />
+                </label>
+                <label>Getting ready location (if different)
+                  <input type="text" name="getting_ready_location" />
+                </label>
               </div>
-            </fieldset>
 
-            <div class="grid two-col">
-              <label>Desired getting-ready time
-                <input type="text" name="getting_ready_time" />
+              <fieldset>
+                <legend>Service requested*</legend>
+                <select name="service_type" required>
+                  <option value="">Select one</option>
+                  <option>Bride makeup</option>
+                  <option>Bride hair</option>
+                  <option>Bride hair and makeup</option>
+                  <option>Bridesmaid / other makeup</option>
+                  <option>Bridesmaid / other hair</option>
+                  <option>Flower girl</option>
+                  <option>Trial</option>
+                  <option>Other</option>
+                </select>
+              </fieldset>
+
+              <div class="grid two-col">
+                <label>Number of people needing makeup
+                  <input type="number" name="makeup_count" min="0" />
+                </label>
+                <label>Number of people needing hair
+                  <input type="number" name="hair_count" min="0" />
+                </label>
+              </div>
+
+              <fieldset>
+                <legend>Are hair extensions needed?</legend>
+                <div class="radio-row">
+                  <label><input type="radio" name="extensions_needed" value="Yes" /> Yes</label>
+                  <label><input type="radio" name="extensions_needed" value="No" /> No</label>
+                  <label><input type="radio" name="extensions_needed" value="Not sure" /> Not sure</label>
+                </div>
+              </fieldset>
+
+              <div class="grid two-col">
+                <label>Desired getting-ready time
+                  <input type="text" name="getting_ready_time" />
+                </label>
+                <label>Ceremony / event start time
+                  <input type="text" name="ceremony_time" />
+                </label>
+              </div>
+
+              <label>Desired glam style
+                <textarea name="glam_description" rows="3"></textarea>
               </label>
-              <label>Ceremony / event start time
-                <input type="text" name="ceremony_time" />
+
+              <label>Upload a clear current selfie*
+                <input type="file" name="selfie" accept="image/*" required />
               </label>
-            </div>
 
-            <label>Desired glam style
-              <textarea name="glam_description" rows="3"></textarea>
-            </label>
+              <label>Upload inspiration images* (up to 6)
+                <input type="file" name="inspo_images" accept="image/*" multiple required />
+              </label>
 
-            <label>Upload a clear current selfie* 
-              <input type="file" name="selfie" accept="image/*" required />
-            </label>
+              <label>Allergies, sensitivities, or skin concerns
+                <textarea name="allergies" rows="3"></textarea>
+              </label>
 
-            <label>Upload inspiration images* (up to 6)
-              <input type="file" name="inspo_images" accept="image/*" multiple required />
-            </label>
+              <label>Additional notes
+                <textarea name="additional_notes" rows="4"></textarea>
+              </label>
 
-            <label>Allergies, sensitivities, or skin concerns
-              <textarea name="allergies" rows="3"></textarea>
-            </label>
-
-            <label>Additional notes
-              <textarea name="additional_notes" rows="4"></textarea>
-            </label>
-
-            <p class="subtle-text">If your inquiry does not submit properly, please email glambysabina@yahoo.com directly.</p>
-            <button type="submit" class="button" id="submit-btn">Submit Inquiry</button>
-            <p id="form-status" role="status" aria-live="polite"></p>
-          </form>
+              <p class="subtle-text">If your inquiry does not submit properly, please email glambysabina@yahoo.com directly.</p>
+              <button type="submit" class="button" id="submit-btn">Submit Inquiry</button>
+              <p id="form-status" role="status" aria-live="polite"></p>
+            </form>
+          </div>
         </div>
       </section>
 
       <section class="section divider">
         <div class="container narrow">
-          <h2>How the Bridal Inquiry Process Works</h2>
-          <ol>
-            <li>Submit your inquiry.</li>
-            <li>Sabina personally reviews availability and service fit.</li>
-            <li>Approved inquiries receive the bridal pricing guide.</li>
-            <li>Client confirms requested services.</li>
-            <li>Sabina sends the Square Contract and invoice/deposit link.</li>
-            <li>Your date is secured after the agreement is signed and the $100 non-refundable deposit is paid.</li>
-          </ol>
-        </div>
-      </section>
-
-      <section class="section divider">
-        <div class="container narrow">
-          <h2>Booking Note</h2>
-          <p>
-            A submitted inquiry does not confirm your booking. Approved inquiries will receive next steps directly from
-            Sabina. Your date is reserved only after your Square service agreement is signed and the $100 non-refundable
-            deposit is received.
-          </p>
+          <div class="note-card">
+            <h2>Before You Submit</h2>
+            <p>
+              Each inquiry is personally reviewed by Sabina. Approved inquiries will receive the bridal pricing guide
+              and next steps directly by email. Your date is not reserved until the Square service agreement is signed
+              and the $100 non-refundable deposit is received.
+            </p>
+          </div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p>Glam by Sabina</p>
-        <p><a href="https://instagram.com/glambysabina_" target="_blank" rel="noopener noreferrer">@glambysabina_</a></p>
-        <p><a href="mailto:glambysabina@yahoo.com">glambysabina@yahoo.com</a></p>
-        <p>Grand Junction, CO &amp; Surrounding Areas</p>
-        <p class="subtle-text">Bridal Hair &amp; Makeup Artist</p>
+    <footer class="site-footer divider">
+      <div class="container narrow">
+        <p class="footer-title">Glam by Sabina</p>
+        <div class="contact-row">
+          <a href="https://instagram.com/glambysabina_" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+            @glambysabina_
+          </a>
+          <a href="mailto:glambysabina@yahoo.com">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="M3 7l9 7 9-7"></path></svg>
+            glambysabina@yahoo.com
+          </a>
+          <p>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-6.4-6-11a6 6 0 1112 0c0 4.6-6 11-6 11z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>
+            Grand Junction, Colorado &amp; Surrounding Areas
+          </p>
+        </div>
       </div>
     </footer>
 
@@ -195,4 +209,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-
