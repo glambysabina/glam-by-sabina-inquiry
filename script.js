@@ -1,3 +1,22 @@
+// ─── EmailJS Configuration ────────────────────────────────────────────────────
+// HOW TO SET UP:
+// 1. Create a free account at https://www.emailjs.com
+// 2. Add a service (choose Yahoo Mail) — copy the Service ID below.
+// 3. Create an email template — copy the Template ID below.
+//    In the template, set To Email = glambysabina@yahoo.com
+//    Use {{reply_to}} as the Reply-To address so Sabina can reply directly to the bride.
+//    Use the variable names in the payload below (e.g. {{bride_name}}, {{event_date}}) in your template body.
+// 4. Copy your Public Key from EmailJS Account > API Keys.
+// 5. Paste the three values into the constants below.
+
+const EMAILJS_PUBLIC_KEY  = "YOUR_EMAILJS_PUBLIC_KEY";   // ← paste your EmailJS public key here
+const EMAILJS_SERVICE_ID  = "YOUR_EMAILJS_SERVICE_ID";   // ← paste your EmailJS service ID here
+const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";  // ← paste your EmailJS template ID here
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 const form = document.getElementById("bridal-inquiry-form");
 const statusEl = document.getElementById("form-status");
 const submitBtn = document.getElementById("submit-btn");
@@ -60,9 +79,6 @@ form.addEventListener("submit", async (event) => {
     if (!selfieFile || selfieFile.size === 0) {
       throw new Error("Missing required selfie upload.");
     }
-    if (inspoFiles.length === 0) {
-      throw new Error("Missing required inspiration uploads.");
-    }
 
     let selfieUrl;
     let inspoUrls = [];
@@ -97,15 +113,46 @@ form.addEventListener("submit", async (event) => {
       inspo_urls: inspoUrls,
     };
 
-    const { error } = await supabaseClient.from("inquiries").insert([payload]);
-    if (error) {
-      error.stage = "db_insert";
-      throw error;
+    const { error: dbError } = await supabaseClient.from("inquiries").insert([payload]);
+    if (dbError) {
+      dbError.stage = "db_insert";
+      throw dbError;
+    }
+
+    // Send email notification via EmailJS — only fires after a successful Supabase insert.
+    // Email failure is non-fatal: the inquiry is already saved and Sabina can view it in Supabase.
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        // reply_to allows Sabina to click Reply and respond directly to the bride's email address.
+        reply_to:   payload.email,
+        from_name:  payload.full_name,
+        bride_email: payload.email,
+
+        // Inquiry details — use these variable names in your EmailJS template.
+        bride_name:             payload.full_name,
+        instagram:              payload.instagram || "—",
+        event_date:             payload.event_date,
+        venue:                  payload.venue,
+        getting_ready_location: payload.getting_ready_location || "—",
+        service_type:           payload.service_type,
+        makeup_count:           payload.makeup_count ?? "—",
+        hair_count:             payload.hair_count ?? "—",
+        extensions_needed:      payload.extensions_needed || "—",
+        getting_ready_time:     payload.getting_ready_time || "—",
+        ceremony_time:          payload.ceremony_time || "—",
+        glam_description:       payload.glam_description || "—",
+        allergies:              payload.allergies || "—",
+        additional_notes:       payload.additional_notes || "—",
+        selfie_url:             selfieUrl,
+        inspo_urls:             inspoUrls.length ? inspoUrls.join("\n") : "None provided",
+      });
+    } catch (emailError) {
+      console.error("EmailJS send failed (inquiry already saved to Supabase):", emailError);
     }
 
     localStorage.setItem(`submitted-${dedupeKey}`, new Date().toISOString());
     form.reset();
-    setStatus("Thank you. Your inquiry was received beautifully and will be personally reviewed by Sabina.", "success");
+    setStatus("Your inquiry has been received successfully. Sabina will review your submission and respond within 24–48 hours.", "success");
   } catch (error) {
     console.error("Inquiry submit failed:", {
       stage: error.stage || "unknown",
@@ -116,9 +163,7 @@ form.addEventListener("submit", async (event) => {
     });
 
     if (error.stage === "storage_upload") {
-      setStatus("Upload failed. Please try again or email Sabina directly.", "error");
-    } else if (error.stage === "db_insert") {
-      setStatus("Inquiry save failed. Please try again or email Sabina directly.", "error");
+      setStatus("Upload failed. Please try again or email glambysabina@yahoo.com directly.", "error");
     } else {
       setStatus("We couldn't submit your inquiry right now. Please email glambysabina@yahoo.com directly.", "error");
     }
@@ -127,4 +172,3 @@ form.addEventListener("submit", async (event) => {
     submitBtn.disabled = false;
   }
 });
-
