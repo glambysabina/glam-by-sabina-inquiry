@@ -1,24 +1,25 @@
-// ─── EmailJS Configuration ────────────────────────────────────────────────────
-// HOW TO SET UP:
-// 1. Create a free account at https://www.emailjs.com
-// 2. Add a service (choose Yahoo Mail) — copy the Service ID below.
-// 3. Create an email template — copy the Template ID below.
-//    In the template, set To Email = glambysabina@yahoo.com
-//    Use {{reply_to}} as the Reply-To address so Sabina can reply directly to the bride.
-//    Use the variable names in the payload below (e.g. {{bride_name}}, {{event_date}}) in your template body.
-// 4. Copy your Public Key from EmailJS Account > API Keys.
-// 5. Paste the three values into the constants below.
-
-const EMAILJS_PUBLIC_KEY  = "YOUR_EMAILJS_PUBLIC_KEY";   // ← paste your EmailJS public key here
-const EMAILJS_SERVICE_ID  = "YOUR_EMAILJS_SERVICE_ID";   // ← paste your EmailJS service ID here
-const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";  // ← paste your EmailJS template ID here
-
-if (typeof emailjs !== 'undefined') {
-  emailjs.init(EMAILJS_PUBLIC_KEY);
-} else {
-  console.warn('EmailJS failed to load — email notifications will be skipped.');
-}
-
+// ─── Email Notification Setup ─────────────────────────────────────────────────
+// After each successful inquiry insert, a Supabase Edge Function calls Resend
+// to email glambysabina@yahoo.com. Email failure is non-fatal — the inquiry is
+// already saved and visible in the Supabase dashboard.
+//
+// SETUP (one-time):
+// 1. Create a free account at https://resend.com
+//    - Verify your sending domain under Resend > Domains
+//      (during initial testing you can skip this — see note in the Edge Function)
+//    - Copy your API key from Resend > API Keys
+//
+// 2. In Supabase Dashboard > Project Settings > Edge Functions > Secrets, add:
+//    RESEND_API_KEY = (your Resend API key)
+//    TO_EMAIL       = glambysabina@yahoo.com
+//    FROM_EMAIL     = you@yourverifieddomain.com  (add once domain is verified)
+//
+// 3. Deploy the Edge Function once from your terminal:
+//    npx supabase functions deploy send-inquiry-email --project-ref jdmzhqneamuzcfnzdyui
+//
+// 4. Submit a test inquiry and verify:
+//    - Supabase Dashboard > Edge Functions > send-inquiry-email > Logs
+//    - Inbox at glambysabina@yahoo.com
 // ─────────────────────────────────────────────────────────────────────────────
 
 const form = document.getElementById("bridal-inquiry-form");
@@ -138,18 +139,19 @@ form.addEventListener("submit", async (event) => {
       throw dbError;
     }
 
-    // Send email notification via EmailJS — only fires after a successful Supabase insert.
-    // Email failure is non-fatal: the inquiry is already saved and Sabina can view it in Supabase.
-    if (typeof emailjs !== 'undefined') {
-      try {
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          // reply_to allows Sabina to click Reply and respond directly to the bride's email address.
-          reply_to:   payload.email,
-          from_name:  payload.full_name,
-          bride_email: payload.email,
-
-          // Inquiry details — use these variable names in your EmailJS template.
+    // Send email notification via Supabase Edge Function → Resend.
+    // Non-fatal: inquiry is already saved in Supabase if this fails.
+    try {
+      await fetch(`${SUPABASE_URL}/functions/v1/send-inquiry-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({
+          reply_to:               payload.email,
           bride_name:             payload.full_name,
+          bride_email:            payload.email,
           instagram:              payload.instagram || "—",
           event_date:             payload.event_date,
           venue:                  payload.venue,
@@ -165,12 +167,10 @@ form.addEventListener("submit", async (event) => {
           additional_notes:       payload.additional_notes || "—",
           selfie_url:             selfieUrl,
           inspo_urls:             inspoUrls.length ? inspoUrls.join("\n") : "None provided",
-        });
-      } catch (emailError) {
-        console.error("EmailJS send failed (inquiry already saved to Supabase):", emailError);
-      }
-    } else {
-      console.warn("EmailJS not available — email notification skipped. Inquiry saved to Supabase.");
+        }),
+      });
+    } catch (emailError) {
+      console.error("Edge Function email failed (inquiry already saved to Supabase):", emailError);
     }
 
     localStorage.setItem(`submitted-${dedupeKey}`, new Date().toISOString());
