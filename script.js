@@ -97,6 +97,21 @@ form.addEventListener("submit", async (event) => {
       throw uploadError;
     }
 
+    // Collect party detail fields (not DB columns — appended to additional_notes)
+    const partyLines = [];
+    const bridesmaidsCount = formData.get("bridesmaids_count");
+    const motherServices = formData.get("mother_services");
+    const flowerGirlServices = formData.get("flower_girl_services");
+    if (bridesmaidsCount) partyLines.push(`Bridesmaids: ${bridesmaidsCount}`);
+    if (motherServices) partyLines.push(`Mother of bride/groom services: ${motherServices}`);
+    if (flowerGirlServices) partyLines.push(`Flower girl services: ${flowerGirlServices}`);
+
+    const userNotes = formData.get("additional_notes") || "";
+    const combinedNotes = [
+      partyLines.length ? `[Party Details] ${partyLines.join(" | ")}` : null,
+      userNotes || null,
+    ].filter(Boolean).join("\n") || null;
+
     const payload = {
       full_name: formData.get("full_name"),
       email: formData.get("email"),
@@ -112,7 +127,7 @@ form.addEventListener("submit", async (event) => {
       ceremony_time: formData.get("ceremony_time") || null,
       glam_description: formData.get("glam_description") || null,
       allergies: formData.get("allergies") || null,
-      additional_notes: formData.get("additional_notes") || null,
+      additional_notes: combinedNotes,
       selfie_url: selfieUrl,
       inspo_urls: inspoUrls,
     };

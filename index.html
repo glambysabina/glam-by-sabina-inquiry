@@ -56,6 +56,35 @@
         </div>
       </section>
 
+      <section class="section beauty-editorial divider">
+        <div class="container narrow">
+          <div class="beauty-editorial-inner">
+
+            <div class="beauty-editorial-copy">
+              <p class="beauty-eyebrow">THE GLAM EXPERIENCE</p>
+              <h2 class="beauty-headline">Soft bridal beauty,<br>captured beautifully.</h2>
+              <p class="beauty-body">A calm, polished beauty experience designed for the moments before the aisle, the photographs that last, and the way you feel throughout the day.</p>
+              <div class="beauty-links">
+                <a href="https://www.instagram.com/glambysabina_/" target="_blank" rel="noopener noreferrer" class="text-link">View @glambysabina_</a>
+                <a href="#inquiry-form" class="text-link">Begin Inquiry</a>
+              </div>
+            </div>
+
+            <!-- Recommended image direction: soft bridal glam close-up, luminous skin, elegant neutral makeup, editorial beauty photography, ivory background, refined feminine mood, natural light, luxury bridal beauty, calm getting-ready energy -->
+            <div class="beauty-editorial-frame">
+              <img
+                src="./assets/glam-editorial.jpg"
+                alt="Glam by Sabina bridal beauty"
+                class="beauty-img"
+                onerror="this.style.display='none'"
+              />
+              <span class="beauty-frame-label" aria-hidden="true">Editorial image coming soon</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <section class="section editorial-strip-section divider">
         <div class="container narrow">
           <div class="editorial-strip">
@@ -100,39 +129,57 @@
               <label>Service requested*
                 <select name="service_type" required>
                   <option value="">Select one</option>
-                  <option>Bride makeup</option>
-                  <option>Bride hair</option>
-                  <option>Bride hair and makeup</option>
-                  <option>Bridesmaid makeup</option>
-                  <option>Bridesmaid hair</option>
-                  <option>Bridesmaid hair and makeup</option>
-                  <option>Mother of bride/groom makeup</option>
-                  <option>Mother of bride/groom hair</option>
-                  <option>Flower girl</option>
-                  <option>Trial</option>
-                  <option>Special event makeup</option>
-                  <option>Special event hair</option>
+                  <option>Bride Hair + Makeup</option>
+                  <option>Bride Hair Only</option>
+                  <option>Bride Makeup Only</option>
+                  <option>Bride + Bridal Party Hair + Makeup</option>
+                  <option>Bride + Bridal Party Makeup</option>
+                  <option>Bride + Bridal Party Hair</option>
+                  <option>Bridal Party Only</option>
+                  <option>Trial Appointment</option>
+                  <option>Special Event Glam</option>
                   <option>Other</option>
                 </select>
               </label>
 
-              <div class="grid two-col">
-                <label>Number of people needing makeup
-                  <input type="number" name="makeup_count" min="0" />
-                </label>
-                <label>Number of people needing hair
-                  <input type="number" name="hair_count" min="0" />
-                </label>
-              </div>
-
-              <fieldset>
-                <legend>Are hair extensions needed?</legend>
-                <div class="radio-row">
-                  <label><input type="radio" name="extensions_needed" value="Yes" /> Yes</label>
-                  <label><input type="radio" name="extensions_needed" value="No" /> No</label>
-                  <label><input type="radio" name="extensions_needed" value="Not sure" /> Not sure</label>
+              <div class="party-details">
+                <p class="party-details-label">Party Details</p>
+                <div class="grid two-col">
+                  <label>People needing makeup
+                    <input type="number" name="makeup_count" min="0" />
+                  </label>
+                  <label>People needing hair
+                    <input type="number" name="hair_count" min="0" />
+                  </label>
+                  <label>Number of bridesmaids
+                    <input type="number" name="bridesmaids_count" min="0" />
+                  </label>
                 </div>
-              </fieldset>
+                <fieldset>
+                  <legend>Hair extensions needed?</legend>
+                  <div class="radio-row">
+                    <label><input type="radio" name="extensions_needed" value="Yes" /> Yes</label>
+                    <label><input type="radio" name="extensions_needed" value="No" /> No</label>
+                    <label><input type="radio" name="extensions_needed" value="Not sure" /> Not sure</label>
+                  </div>
+                </fieldset>
+                <div class="grid two-col">
+                  <fieldset>
+                    <legend>Mother of bride/groom?</legend>
+                    <div class="radio-row">
+                      <label><input type="radio" name="mother_services" value="Yes" /> Yes</label>
+                      <label><input type="radio" name="mother_services" value="No" /> No</label>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend>Flower girl?</legend>
+                    <div class="radio-row">
+                      <label><input type="radio" name="flower_girl_services" value="Yes" /> Yes</label>
+                      <label><input type="radio" name="flower_girl_services" value="No" /> No</label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
 
               <div class="grid two-col">
                 <label>Desired getting-ready time
