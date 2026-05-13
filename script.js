@@ -142,31 +142,23 @@ form.addEventListener("submit", async (event) => {
     // Send email notification via Supabase Edge Function → Resend.
     // Non-fatal: inquiry is already saved in Supabase if this fails.
     try {
-      await fetch(`${SUPABASE_URL}/functions/v1/send-inquiry-email`, {
+      await fetch("https://jdmzhqneamuzcfnzdyui.supabase.co/functions/v1/send-inquiry-email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({
-          reply_to:               payload.email,
-          bride_name:             payload.full_name,
-          bride_email:            payload.email,
-          instagram:              payload.instagram || "—",
-          event_date:             payload.event_date,
-          venue:                  payload.venue,
-          getting_ready_location: payload.getting_ready_location || "—",
-          service_type:           payload.service_type,
-          makeup_count:           payload.makeup_count ?? "—",
-          hair_count:             payload.hair_count ?? "—",
-          extensions_needed:      payload.extensions_needed || "—",
-          getting_ready_time:     payload.getting_ready_time || "—",
-          ceremony_time:          payload.ceremony_time || "—",
-          glam_description:       payload.glam_description || "—",
-          allergies:              payload.allergies || "—",
-          additional_notes:       payload.additional_notes || "—",
-          selfie_url:             selfieUrl,
-          inspo_urls:             inspoUrls.length ? inspoUrls.join("\n") : "None provided",
+          name:                 payload.full_name,
+          email:                payload.email,
+          event_date:           payload.event_date,
+          venue:                payload.venue,
+          service_requested:    payload.service_type,
+          party_size:           [
+            payload.makeup_count ? `Makeup: ${payload.makeup_count}` : null,
+            payload.hair_count   ? `Hair: ${payload.hair_count}`   : null,
+          ].filter(Boolean).join(", ") || null,
+          describe_your_vision: payload.glam_description || null,
+          additional_notes:     payload.additional_notes || null,
         }),
       });
     } catch (emailError) {
