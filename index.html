@@ -111,37 +111,12 @@
         </div>
       </section>
 
-      <section class="section beauty-editorial divider">
-        <div class="container narrow">
-          <div class="beauty-editorial-inner">
-
-            <div class="beauty-editorial-copy">
-              <p class="beauty-eyebrow">THE GLAM EXPERIENCE</p>
-              <h2 class="beauty-headline">Soft glam,<br>captured beautifully.</h2>
-              <p class="beauty-body">A calm, polished experience for weddings, events, and meaningful moments — designed to feel effortless in person and on camera.</p>
-              <div class="beauty-links">
-                <a href="https://www.instagram.com/glambysabina_/" target="_blank" rel="noopener noreferrer" class="text-link">View @glambysabina_</a>
-                <a href="#inquiry-form" class="text-link">Begin Inquiry</a>
-              </div>
-            </div>
-
-            <!-- Recommended image direction: soft bridal glam close-up, luminous skin, elegant neutral makeup, editorial beauty photography, ivory background, refined feminine mood, natural light, luxury bridal beauty, calm getting-ready energy -->
-            <div class="beauty-editorial-frame">
-              <img
-                src="./assets/glam-editorial.jpg"
-                alt="Glam by Sabina"
-                class="beauty-img"
-                onerror="this.style.display='none'"
-              />
-              <span class="beauty-frame-label" aria-hidden="true">Editorial image coming soon</span>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
       <section class="section divider" id="inquiry-form">
         <div class="container narrow">
+          <div class="form-intro">
+            <p class="form-intro-tagline">Soft glam, styled with intention.</p>
+            <p class="form-intro-body">Hair and makeup for bridal mornings, special events, and polished moments — designed to feel effortless in person and photograph beautifully.</p>
+          </div>
           <div class="form-card">
             <h2>Begin Your Inquiry</h2>
             <p class="form-prenote">Each inquiry is personally reviewed by Sabina. Approved inquiries will receive the pricing guide and next steps by email. Your date is not confirmed until the service agreement is signed and your $100 non-refundable deposit is received.</p>
@@ -298,5 +273,13 @@
     <!-- EmailJS: powers automatic inquiry email notifications -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
+    <script>
+      window.addEventListener('load', function() {
+        var section = document.querySelector('.gallery-section');
+        var items = section ? section.querySelectorAll('.carousel-item') : [];
+        var hasVisible = Array.from(items).some(function(el) { return el.style.display !== 'none'; });
+        if (section && !hasVisible) section.style.display = 'none';
+      });
+    </script>
   </body>
 </html>
