@@ -172,50 +172,46 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); text-align: center; margin-bottom: 1
   max-width: 480px;
 }
 
-/* Recent Work Gallery */
+/* Recent Work Carousel */
 .gallery-header { text-align: center; margin-bottom: 2rem; }
-.gallery-handle {
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
+.gallery-subtext {
   color: var(--muted);
-  margin: 0.3rem 0 0;
+  font-size: clamp(1rem, 2.1vw, 1.08rem);
+  margin: 0.5rem 0 0;
+  font-style: italic;
 }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.gallery-carousel {
+  display: flex;
   gap: clamp(0.45rem, 1.2vw, 0.75rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 0.25rem;
   margin-bottom: 1.8rem;
 }
-.gallery-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+.gallery-carousel::-webkit-scrollbar { display: none; }
+.carousel-item {
+  flex: 0 0 auto;
+  width: min(72vw, 300px);
   aspect-ratio: 1;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 2px;
   background: #f0ede8;
+  scroll-snap-align: start;
+  display: block;
   text-decoration: none;
+  position: relative;
 }
-.gallery-img {
-  position: absolute;
-  inset: 0;
+.carousel-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.5s ease;
 }
-.gallery-item:hover .gallery-img { transform: scale(1.04); }
-.gallery-placeholder {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  font-style: italic;
-  color: var(--accent);
-  text-align: center;
-  pointer-events: none;
-}
+.carousel-item:hover .carousel-img { transform: scale(1.04); }
 .gallery-footer { text-align: center; }
 
 /* Beauty Editorial Moment */
@@ -284,44 +280,6 @@ h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); text-align: center; margin-bottom: 1
   text-align: center;
   padding: 1.5rem;
   pointer-events: none;
-}
-
-/* Editorial Strip */
-.editorial-strip-section { background: var(--bg); }
-.editorial-strip {
-  text-align: center;
-  padding: 0 0 clamp(1.8rem, 4.5vw, 3rem);
-}
-.editorial-divider {
-  height: 1px;
-  background: var(--line);
-  margin: 2rem auto 0;
-  width: min(100%, 500px);
-}
-.editorial-eyebrow {
-  font-size: 0.8rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin: 0 0 1rem;
-}
-.editorial-title {
-  font-size: clamp(1.55rem, 3.5vw, 2.1rem);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.55rem;
-}
-.editorial-title-line {
-  width: 36px;
-  height: 1px;
-  background: var(--accent);
-  margin: 0 auto 1.3rem;
-}
-.editorial-body {
-  margin: 0 auto;
-  max-width: 540px;
-  color: var(--muted);
-  font-size: clamp(1rem, 2.1vw, 1.08rem);
 }
 
 /* Form */
@@ -445,6 +403,8 @@ a { color: inherit; }
   /* Beauty editorial: copy left, image frame right */
   .beauty-editorial-inner { grid-template-columns: 1fr 1fr; }
   .beauty-editorial-frame { max-height: 540px; }
+  /* Carousel: stretch items to fill full width on desktop */
+  .carousel-item { flex: 1 1 0; width: auto; min-width: 0; }
 }
 
 /* Mobile */
@@ -462,8 +422,6 @@ a { color: inherit; }
   .section-name { text-align: center; }
   .about-ornament { margin: 0 auto 1.8rem; }
   .about-body { max-width: 100%; }
-  /* Gallery: 2 columns on mobile */
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   /* Beauty editorial: centered copy on mobile */
   .beauty-editorial-frame { aspect-ratio: 4 / 3; }
   .beauty-headline { text-align: center; }
