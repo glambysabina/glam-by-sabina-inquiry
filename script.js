@@ -9,14 +9,22 @@ function setStatus(message, type = "") {
 }
 
 function buildPath(prefix, file) {
-  const ext = file.name.split(".").pop();
+  const rawExt = (file.name.includes(".") ? file.name.split(".").pop() : "") || "";
+  const typeExt = (file.type || "").split("/").pop() || "";
+  const ext = (rawExt || typeExt || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
   return `${prefix}/${Date.now()}-${crypto.randomUUID()}.${ext}`;
 }
 
 async function uploadSingle(bucket, file, prefix) {
   const filePath = buildPath(prefix, file);
-  const { error } = await supabaseClient.storage.from(bucket).upload(filePath, file, { upsert: false });
-  if (error) throw error;
+  const { error } = await supabaseClient.storage.from(bucket).upload(filePath, file, {
+    upsert: false,
+    contentType: file.type || undefined,
+  });
+  if (error) {
+    console.error("Upload failed", { bucket, filePath, fileName: file.name, fileType: file.type, error });
+    throw error;
+  }
   const { data } = supabaseClient.storage.from(bucket).getPublicUrl(filePath);
   return data.publicUrl;
 }
