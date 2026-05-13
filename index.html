@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -29,47 +29,43 @@
       <section class="hero section">
         <div class="container narrow">
           <div class="hero-panel">
-            <h1>Your bridal glam inquiry starts here.</h1>
+            <div class="hero-ornament" aria-hidden="true">
+              <svg viewBox="0 0 240 44" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <line x1="0" y1="22" x2="72" y2="22" stroke="currentColor" stroke-width="0.6"/>
+                <ellipse cx="120" cy="22" rx="38" ry="16" stroke="currentColor" stroke-width="0.6"/>
+                <line x1="168" y1="22" x2="240" y2="22" stroke="currentColor" stroke-width="0.6"/>
+              </svg>
+            </div>
+            <h1>Your bridal glam starts here.</h1>
             <p>
               Thank you for considering Glam by Sabina for your special day. Each bridal experience is thoughtfully personalized to create a calm, polished, and elevated getting-ready experience designed to feel effortless both in person and on camera.
             </p>
             <a href="#inquiry-form" class="button">Begin Inquiry</a>
-            <p class="subtle-text">
-              Bridal hair and makeup serving Grand Junction, Colorado and surrounding areas.
-            </p>
           </div>
         </div>
       </section>
 
-      <section class="section divider">
+      <section class="section about-section divider">
         <div class="container narrow">
-          <h2>Meet Sabina</h2>
-          <p>
-            Sabina creates timeless bridal hair and makeup with a refined soft-glam approach designed to photograph
-            beautifully and feel elevated in person. Each bridal experience is intentionally personalized to create a
-            calm, polished getting-ready experience for the bride and bridal party.
+          <p class="section-eyebrow">Meet Your Glam Artist</p>
+          <h2 class="section-name">Sabina</h2>
+          <p class="about-body">
+            Sabina has been creating hair and makeup looks since 2016, with a focus on timeless bridal beauty, soft glam, and polished event styling. Her approach blends experience, current beauty trends, and a calm, personal process designed to help each bride feel confident, photographed beautifully, and fully cared for on her wedding day.
           </p>
-          <div class="portrait-block" aria-hidden="true"></div>
-          <div class="about-actions">
-            <a class="text-link" href="https://instagram.com/glambysabina_" target="_blank" rel="noopener noreferrer">
-              View Instagram @glambysabina_
-            </a>
-          </div>
         </div>
       </section>
 
-      <section class="section divider">
+      <section class="section editorial-strip-section">
         <div class="container narrow">
-          <div class="brand-strip">
-            <h3>Soft glam, styled with intention.</h3>
-            <p>
-              Bridal hair and makeup designed to photograph beautifully, feel effortless in person, and support a calm
-              getting-ready experience.
+          <div class="editorial-strip">
+            <div class="editorial-divider" aria-hidden="true"></div>
+            <p class="editorial-eyebrow">Glam by Sabina</p>
+            <h3 class="editorial-title">Soft glam, styled with intention.</h3>
+            <div class="editorial-title-line" aria-hidden="true"></div>
+            <p class="editorial-body">
+              Bridal hair and makeup designed to photograph beautifully, feel effortless in person, and support a calm getting-ready experience.
             </p>
-            <div class="strip-links">
-              <a class="text-link" href="https://instagram.com/glambysabina_" target="_blank" rel="noopener noreferrer">View Instagram</a>
-              <a class="text-link" href="#inquiry-form">Begin Inquiry</a>
-            </div>
+            <div class="editorial-divider" aria-hidden="true"></div>
           </div>
         </div>
       </section>
@@ -107,10 +103,15 @@
                   <option>Bride makeup</option>
                   <option>Bride hair</option>
                   <option>Bride hair and makeup</option>
-                  <option>Bridesmaid / other makeup</option>
-                  <option>Bridesmaid / other hair</option>
+                  <option>Bridesmaid makeup</option>
+                  <option>Bridesmaid hair</option>
+                  <option>Bridesmaid hair and makeup</option>
+                  <option>Mother of bride/groom makeup</option>
+                  <option>Mother of bride/groom hair</option>
                   <option>Flower girl</option>
                   <option>Trial</option>
+                  <option>Special event makeup</option>
+                  <option>Special event hair</option>
                   <option>Other</option>
                 </select>
               </fieldset>
@@ -135,23 +136,34 @@
 
               <div class="grid two-col">
                 <label>Desired getting-ready time
-                  <input type="text" name="getting_ready_time" />
+                  <input type="time" name="getting_ready_time" />
                 </label>
                 <label>Ceremony / event start time
-                  <input type="text" name="ceremony_time" />
+                  <input type="time" name="ceremony_time" />
                 </label>
               </div>
+              <p class="field-helper">Times are in Mountain Time unless otherwise noted.</p>
 
               <label>Desired glam style
                 <textarea name="glam_description" rows="3"></textarea>
               </label>
 
               <label>Upload a clear current selfie*
-                <input type="file" name="selfie" accept="image/*" required />
+                <input
+                  type="file"
+                  name="selfie"
+                  accept="image/jpeg,image/jpg,image/png,image/heic,image/heif,image/webp"
+                  required
+                />
               </label>
 
-              <label>Upload inspiration images* (up to 6)
-                <input type="file" name="inspo_images" accept="image/*" multiple />
+              <label>Upload inspiration images (up to 6, optional)
+                <input
+                  type="file"
+                  name="inspo_images"
+                  accept="image/jpeg,image/jpg,image/png,image/heic,image/heif,image/webp"
+                  multiple
+                />
               </label>
 
               <label>Allergies, sensitivities, or skin concerns
@@ -206,6 +218,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase.js"></script>
+    <!-- EmailJS: powers automatic inquiry email notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
