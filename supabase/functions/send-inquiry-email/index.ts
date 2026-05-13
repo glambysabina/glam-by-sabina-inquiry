@@ -1,11 +1,10 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
@@ -15,9 +14,6 @@ serve(async (req) => {
 
     const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
     const TO_EMAIL = Deno.env.get("TO_EMAIL") ?? "glambysabina@yahoo.com";
-    // FROM_EMAIL must be a Resend-verified domain address.
-    // During initial testing, omit this secret and Resend's shared domain is used,
-    // but delivery will only work to your Resend account's registered email.
     const FROM_EMAIL = Deno.env.get("FROM_EMAIL") ?? "onboarding@resend.dev";
 
     if (!RESEND_API_KEY) {
@@ -39,7 +35,7 @@ serve(async (req) => {
       body: JSON.stringify({
         from: FROM_EMAIL,
         to: [TO_EMAIL],
-        reply_to: payload.reply_to ?? payload.bride_email,
+        reply_to: payload.email,
         subject: "New Glam by Sabina Inquiry",
         html,
       }),
@@ -55,9 +51,15 @@ serve(async (req) => {
       });
     }
 
-    return new Response(JSON.stringify({ ok: true, id: data.id }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ success: true }),
+      {
+        headers: {
+          ...corsHeaders,
+          "Content-Type": "application/json",
+        },
+      }
+    );
   } catch (err) {
     console.error("Edge Function error", err);
     return new Response(JSON.stringify({ error: err.message }), {
@@ -94,38 +96,19 @@ function buildEmailHtml(p: Payload): string {
 
         <tr><td style="padding:24px 14px 8px;">
           <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-top:1px solid #e5e1dc;">
-            ${row("Name", p.bride_name)}
-            ${row("Email", p.bride_email)}
-            ${row("Instagram", p.instagram)}
+            ${row("Name", p.name)}
+            ${row("Email", p.email)}
             ${row("Event Date", p.event_date)}
             ${row("Venue", p.venue)}
-            ${row("Getting Ready Location", p.getting_ready_location)}
-            ${row("Service", p.service_type)}
-            ${row("Makeup — # People", p.makeup_count)}
-            ${row("Hair — # People", p.hair_count)}
-            ${row("Extensions Needed", p.extensions_needed)}
-            ${row("Getting Ready Time", p.getting_ready_time)}
-            ${row("Ceremony Time", p.ceremony_time)}
-            ${row("Vision", p.glam_description)}
-            ${row("Allergies / Sensitivities", p.allergies)}
+            ${row("Service Requested", p.service_requested)}
+            ${row("Party Size", p.party_size)}
+            ${row("Vision", p.describe_your_vision)}
             ${row("Additional Notes", p.additional_notes)}
           </table>
         </td></tr>
 
-        ${p.selfie_url ? `
-        <tr><td style="padding:12px 28px;">
-          <p style="margin:0 0 6px;font-size:11px;color:#7c7874;letter-spacing:0.12em;text-transform:uppercase;">Selfie</p>
-          <a href="${p.selfie_url}" style="color:#1a1918;font-size:13px;word-break:break-all;">View selfie →</a>
-        </td></tr>` : ""}
-
-        ${p.inspo_urls && p.inspo_urls !== "None provided" ? `
-        <tr><td style="padding:12px 28px;">
-          <p style="margin:0 0 6px;font-size:11px;color:#7c7874;letter-spacing:0.12em;text-transform:uppercase;">Inspiration Images</p>
-          <p style="margin:0;font-size:13px;color:#1a1918;white-space:pre-line;word-break:break-all;">${p.inspo_urls}</p>
-        </td></tr>` : ""}
-
         <tr><td style="border-top:1px solid #e5e1dc;padding:18px 28px;">
-          <p style="margin:0;font-size:12px;color:#bfb9b3;">Reply directly to this email to respond to ${p.bride_name}.</p>
+          <p style="margin:0;font-size:12px;color:#bfb9b3;">Reply directly to this email to respond to ${p.name}.</p>
         </td></tr>
 
       </table>
