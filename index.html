@@ -45,20 +45,104 @@
         </div>
       </section>
 
-      <section class="section about-section divider">
-        <div class="container narrow">
-          <p class="section-eyebrow">Meet Your Glam Artist</p>
-          <h2 class="section-name">Sabina</h2>
-          <p class="about-body">
-            Sabina has been creating hair and makeup looks since 2016, with a focus on timeless bridal beauty, soft glam, and polished event styling. Her approach blends experience, current beauty trends, and a calm, personal process designed to help each bride feel confident, photographed beautifully, and fully cared for on her wedding day.
-          </p>
+      <!-- Editorial banner — primary emotional image moment -->
+      <section class="editorial-banner divider">
+        <div class="container">
+          <figure class="banner-figure">
+            <img
+              src="./assets/editorial-banner.jpg"
+              alt="Glam by Sabina — bridal editorial"
+              class="banner-img"
+              onerror="this.style.display='none'"
+            />
+          </figure>
         </div>
       </section>
 
-      <section class="section editorial-strip-section">
+      <section class="section about-section divider">
+        <div class="container narrow">
+          <div class="about-inner">
+
+            <div class="about-portrait-frame">
+              <img
+                src="./assets/sabina-editorial.jpg"
+                alt="Sabina — Glam by Sabina"
+                class="about-portrait"
+                onerror="this.style.display='none'"
+              />
+            </div>
+
+            <div class="about-copy">
+              <p class="section-eyebrow">Meet Your Glam Artist</p>
+              <h2 class="section-name">Sabina</h2>
+              <div class="about-ornament" aria-hidden="true"></div>
+              <p class="about-body">
+                Sabina has been creating hair and makeup looks since 2016, with a focus on timeless bridal beauty, soft glam, and polished event styling. Her approach blends experience, current beauty trends, and a calm, personal process designed to help each bride feel confident, photographed beautifully, and fully cared for on her wedding day.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="section gallery-section divider">
+        <div class="container narrow">
+          <div class="gallery-header">
+            <p class="section-eyebrow">Recent Work</p>
+            <p class="gallery-handle">@glambysabina_</p>
+          </div>
+          <div class="gallery-grid">
+            <a href="https://www.instagram.com/glambysabina_/" target="_blank" rel="noopener noreferrer" class="gallery-item">
+              <img src="./assets/gallery-1.jpg" alt="Glam by Sabina — bridal glam" class="gallery-img" onerror="this.style.display='none'" />
+              <span class="gallery-placeholder" aria-hidden="true">Coming soon</span>
+            </a>
+            <a href="https://www.instagram.com/glambysabina_/" target="_blank" rel="noopener noreferrer" class="gallery-item">
+              <img src="./assets/gallery-2.jpg" alt="Glam by Sabina — bridal glam" class="gallery-img" onerror="this.style.display='none'" />
+              <span class="gallery-placeholder" aria-hidden="true">Coming soon</span>
+            </a>
+            <a href="https://www.instagram.com/glambysabina_/" target="_blank" rel="noopener noreferrer" class="gallery-item">
+              <img src="./assets/gallery-3.jpg" alt="Glam by Sabina — bridal glam" class="gallery-img" onerror="this.style.display='none'" />
+              <span class="gallery-placeholder" aria-hidden="true">Coming soon</span>
+            </a>
+          </div>
+          <div class="gallery-footer">
+            <a href="https://www.instagram.com/glambysabina_/" target="_blank" rel="noopener noreferrer" class="text-link">View Instagram</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section beauty-editorial divider">
+        <div class="container narrow">
+          <div class="beauty-editorial-inner">
+
+            <div class="beauty-editorial-copy">
+              <p class="beauty-eyebrow">THE GLAM EXPERIENCE</p>
+              <h2 class="beauty-headline">Soft bridal beauty,<br>captured beautifully.</h2>
+              <p class="beauty-body">A calm, polished beauty experience designed for the moments before the aisle, the photographs that last, and the way you feel throughout the day.</p>
+              <div class="beauty-links">
+                <a href="https://www.instagram.com/glambysabina_/" target="_blank" rel="noopener noreferrer" class="text-link">View @glambysabina_</a>
+                <a href="#inquiry-form" class="text-link">Begin Inquiry</a>
+              </div>
+            </div>
+
+            <!-- Recommended image direction: soft bridal glam close-up, luminous skin, elegant neutral makeup, editorial beauty photography, ivory background, refined feminine mood, natural light, luxury bridal beauty, calm getting-ready energy -->
+            <div class="beauty-editorial-frame">
+              <img
+                src="./assets/glam-editorial.jpg"
+                alt="Glam by Sabina bridal beauty"
+                class="beauty-img"
+                onerror="this.style.display='none'"
+              />
+              <span class="beauty-frame-label" aria-hidden="true">Editorial image coming soon</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="section editorial-strip-section divider">
         <div class="container narrow">
           <div class="editorial-strip">
-            <div class="editorial-divider" aria-hidden="true"></div>
             <p class="editorial-eyebrow">Glam by Sabina</p>
             <h3 class="editorial-title">Soft glam, styled with intention.</h3>
             <div class="editorial-title-line" aria-hidden="true"></div>
@@ -73,66 +157,84 @@
       <section class="section divider" id="inquiry-form">
         <div class="container narrow">
           <div class="form-card">
-            <h2>Bridal Inquiry</h2>
+            <h2>Begin Your Inquiry</h2>
+            <p class="form-prenote">Each inquiry is personally reviewed by Sabina. Brides who are a good fit will receive the pricing guide and next steps by email. Your date is not confirmed until the service agreement is signed and your $100 non-refundable deposit is received.</p>
             <form id="bridal-inquiry-form" novalidate>
               <div class="grid two-col">
                 <label>Full name*
-                  <input type="text" name="full_name" required />
+                  <input type="text" name="full_name" autocomplete="name" placeholder="Your full name" required />
                 </label>
                 <label>Email*
-                  <input type="email" name="email" required />
-                </label>
-                <label>Instagram handle
-                  <input type="text" name="instagram" placeholder="@username" />
+                  <input type="email" name="email" autocomplete="email" required />
                 </label>
                 <label>Event date*
                   <input type="date" name="event_date" required />
                 </label>
                 <label>Event location / venue*
-                  <input type="text" name="venue" required />
+                  <input type="text" name="venue" placeholder="Venue name or general location" required />
                 </label>
                 <label>Getting ready location (if different)
-                  <input type="text" name="getting_ready_location" />
+                  <input type="text" name="getting_ready_location" placeholder="Hotel, home, venue — if different from above" />
+                </label>
+                <label>Instagram handle
+                  <input type="text" name="instagram" placeholder="@username" autocomplete="off" />
                 </label>
               </div>
 
-              <fieldset>
-                <legend>Service requested*</legend>
+              <label>Service requested*
                 <select name="service_type" required>
                   <option value="">Select one</option>
-                  <option>Bride makeup</option>
-                  <option>Bride hair</option>
-                  <option>Bride hair and makeup</option>
-                  <option>Bridesmaid makeup</option>
-                  <option>Bridesmaid hair</option>
-                  <option>Bridesmaid hair and makeup</option>
-                  <option>Mother of bride/groom makeup</option>
-                  <option>Mother of bride/groom hair</option>
-                  <option>Flower girl</option>
-                  <option>Trial</option>
-                  <option>Special event makeup</option>
-                  <option>Special event hair</option>
+                  <option>Bride Hair + Makeup</option>
+                  <option>Bride Hair Only</option>
+                  <option>Bride Makeup Only</option>
+                  <option>Bride + Bridal Party Hair + Makeup</option>
+                  <option>Bride + Bridal Party Makeup</option>
+                  <option>Bride + Bridal Party Hair</option>
+                  <option>Bridal Party Only</option>
+                  <option>Trial Appointment</option>
+                  <option>Special Event Glam</option>
                   <option>Other</option>
                 </select>
-              </fieldset>
+              </label>
 
-              <div class="grid two-col">
-                <label>Number of people needing makeup
-                  <input type="number" name="makeup_count" min="0" />
-                </label>
-                <label>Number of people needing hair
-                  <input type="number" name="hair_count" min="0" />
-                </label>
-              </div>
-
-              <fieldset>
-                <legend>Are hair extensions needed?</legend>
-                <div class="radio-row">
-                  <label><input type="radio" name="extensions_needed" value="Yes" /> Yes</label>
-                  <label><input type="radio" name="extensions_needed" value="No" /> No</label>
-                  <label><input type="radio" name="extensions_needed" value="Not sure" /> Not sure</label>
+              <div class="party-details">
+                <p class="party-details-label">Party Details</p>
+                <div class="grid two-col">
+                  <label>People needing makeup
+                    <input type="number" name="makeup_count" min="0" />
+                  </label>
+                  <label>People needing hair
+                    <input type="number" name="hair_count" min="0" />
+                  </label>
+                  <label>Number of bridesmaids
+                    <input type="number" name="bridesmaids_count" min="0" />
+                  </label>
                 </div>
-              </fieldset>
+                <fieldset>
+                  <legend>Hair extensions needed?</legend>
+                  <div class="radio-row">
+                    <label><input type="radio" name="extensions_needed" value="Yes" /> Yes</label>
+                    <label><input type="radio" name="extensions_needed" value="No" /> No</label>
+                    <label><input type="radio" name="extensions_needed" value="Not sure" /> Not sure</label>
+                  </div>
+                </fieldset>
+                <div class="grid two-col">
+                  <fieldset>
+                    <legend>Mother of bride/groom?</legend>
+                    <div class="radio-row">
+                      <label><input type="radio" name="mother_services" value="Yes" /> Yes</label>
+                      <label><input type="radio" name="mother_services" value="No" /> No</label>
+                    </div>
+                  </fieldset>
+                  <fieldset>
+                    <legend>Flower girl?</legend>
+                    <div class="radio-row">
+                      <label><input type="radio" name="flower_girl_services" value="Yes" /> Yes</label>
+                      <label><input type="radio" name="flower_girl_services" value="No" /> No</label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
 
               <div class="grid two-col">
                 <label>Desired getting-ready time
@@ -144,11 +246,11 @@
               </div>
               <p class="field-helper">Times are in Mountain Time unless otherwise noted.</p>
 
-              <label>Desired glam style
-                <textarea name="glam_description" rows="3"></textarea>
+              <label>Describe your vision
+                <textarea name="glam_description" rows="3" placeholder="Soft glam, dewy skin, bold lash… anything that helps Sabina understand your style."></textarea>
               </label>
 
-              <label>Upload a clear current selfie*
+              <label>A recent photo of yourself*
                 <input
                   type="file"
                   name="selfie"
@@ -156,8 +258,9 @@
                   required
                 />
               </label>
+              <p class="field-helper">Helps Sabina understand your natural coloring, skin tone, and features.</p>
 
-              <label>Upload inspiration images (up to 6, optional)
+              <label>Inspiration images
                 <input
                   type="file"
                   name="inspo_images"
@@ -165,6 +268,7 @@
                   multiple
                 />
               </label>
+              <p class="field-helper">Screenshots, saved looks, anything that captures your vision. Optional — up to 6 images.</p>
 
               <label>Allergies, sensitivities, or skin concerns
                 <textarea name="allergies" rows="3"></textarea>
@@ -174,23 +278,10 @@
                 <textarea name="additional_notes" rows="4"></textarea>
               </label>
 
-              <p class="subtle-text">If your inquiry does not submit properly, please email glambysabina@yahoo.com directly.</p>
-              <button type="submit" class="button" id="submit-btn">Submit Inquiry</button>
+              <button type="submit" class="button" id="submit-btn">Send Inquiry</button>
               <p id="form-status" role="status" aria-live="polite"></p>
+              <p class="subtle-text">If your inquiry does not submit properly, please email glambysabina@yahoo.com directly.</p>
             </form>
-          </div>
-        </div>
-      </section>
-
-      <section class="section divider">
-        <div class="container narrow">
-          <div class="note-card">
-            <h2>Before You Submit</h2>
-            <p>
-              Each inquiry is personally reviewed by Sabina. Approved inquiries will receive the bridal pricing guide
-              and next steps directly by email. Your date is not reserved until the Square service agreement is signed
-              and the $100 non-refundable deposit is received.
-            </p>
           </div>
         </div>
       </section>
