@@ -48,10 +48,24 @@ form.addEventListener("submit", async (event) => {
     const selfieFile = formData.get("selfie");
     const inspoFiles = Array.from(form.querySelector("input[name='inspo_images']").files).slice(0, 6);
 
-    const selfieUrl = await uploadSingle("selfies", selfieFile, "selfies");
-    const inspoUrls = [];
-    for (const file of inspoFiles) {
-      inspoUrls.push(await uploadSingle("inspo-images", file, "inspo"));
+    if (!selfieFile || selfieFile.size === 0) {
+      throw new Error("Missing required selfie upload.");
+    }
+    if (inspoFiles.length === 0) {
+      throw new Error("Missing required inspiration uploads.");
+    }
+
+    let selfieUrl;
+    let inspoUrls = [];
+
+    try {
+      selfieUrl = await uploadSingle("selfies", selfieFile, "selfies");
+      for (const file of inspoFiles) {
+        inspoUrls.push(await uploadSingle("inspo-images", file, "inspo"));
+      }
+    } catch (uploadError) {
+      uploadError.stage = "storage_upload";
+      throw uploadError;
     }
 
     const payload = {
@@ -75,14 +89,30 @@ form.addEventListener("submit", async (event) => {
     };
 
     const { error } = await supabaseClient.from("inquiries").insert([payload]);
-    if (error) throw error;
+    if (error) {
+      error.stage = "db_insert";
+      throw error;
+    }
 
     localStorage.setItem(`submitted-${dedupeKey}`, new Date().toISOString());
     form.reset();
     setStatus("Thank you. Your inquiry was received beautifully and will be personally reviewed by Sabina.", "success");
   } catch (error) {
-    console.error(error);
-    setStatus("We couldn't submit your inquiry right now. Please email glambysabina@yahoo.com directly.", "error");
+    console.error("Inquiry submit failed:", {
+      stage: error.stage || "unknown",
+      message: error.message,
+      code: error.code,
+      details: error.details,
+      hint: error.hint,
+    });
+
+    if (error.stage === "storage_upload") {
+      setStatus("Upload failed. Please try again or email Sabina directly.", "error");
+    } else if (error.stage === "db_insert") {
+      setStatus("Inquiry save failed. Please try again or email Sabina directly.", "error");
+    } else {
+      setStatus("We couldn't submit your inquiry right now. Please email glambysabina@yahoo.com directly.", "error");
+    }
   } finally {
     isSubmitting = false;
     submitBtn.disabled = false;
