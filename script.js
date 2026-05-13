@@ -13,7 +13,11 @@ const EMAILJS_PUBLIC_KEY  = "YOUR_EMAILJS_PUBLIC_KEY";   // ← paste your Email
 const EMAILJS_SERVICE_ID  = "YOUR_EMAILJS_SERVICE_ID";   // ← paste your EmailJS service ID here
 const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";  // ← paste your EmailJS template ID here
 
-emailjs.init(EMAILJS_PUBLIC_KEY);
+if (typeof emailjs !== 'undefined') {
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+} else {
+  console.warn('EmailJS failed to load — email notifications will be skipped.');
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -121,33 +125,37 @@ form.addEventListener("submit", async (event) => {
 
     // Send email notification via EmailJS — only fires after a successful Supabase insert.
     // Email failure is non-fatal: the inquiry is already saved and Sabina can view it in Supabase.
-    try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        // reply_to allows Sabina to click Reply and respond directly to the bride's email address.
-        reply_to:   payload.email,
-        from_name:  payload.full_name,
-        bride_email: payload.email,
+    if (typeof emailjs !== 'undefined') {
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          // reply_to allows Sabina to click Reply and respond directly to the bride's email address.
+          reply_to:   payload.email,
+          from_name:  payload.full_name,
+          bride_email: payload.email,
 
-        // Inquiry details — use these variable names in your EmailJS template.
-        bride_name:             payload.full_name,
-        instagram:              payload.instagram || "—",
-        event_date:             payload.event_date,
-        venue:                  payload.venue,
-        getting_ready_location: payload.getting_ready_location || "—",
-        service_type:           payload.service_type,
-        makeup_count:           payload.makeup_count ?? "—",
-        hair_count:             payload.hair_count ?? "—",
-        extensions_needed:      payload.extensions_needed || "—",
-        getting_ready_time:     payload.getting_ready_time || "—",
-        ceremony_time:          payload.ceremony_time || "—",
-        glam_description:       payload.glam_description || "—",
-        allergies:              payload.allergies || "—",
-        additional_notes:       payload.additional_notes || "—",
-        selfie_url:             selfieUrl,
-        inspo_urls:             inspoUrls.length ? inspoUrls.join("\n") : "None provided",
-      });
-    } catch (emailError) {
-      console.error("EmailJS send failed (inquiry already saved to Supabase):", emailError);
+          // Inquiry details — use these variable names in your EmailJS template.
+          bride_name:             payload.full_name,
+          instagram:              payload.instagram || "—",
+          event_date:             payload.event_date,
+          venue:                  payload.venue,
+          getting_ready_location: payload.getting_ready_location || "—",
+          service_type:           payload.service_type,
+          makeup_count:           payload.makeup_count ?? "—",
+          hair_count:             payload.hair_count ?? "—",
+          extensions_needed:      payload.extensions_needed || "—",
+          getting_ready_time:     payload.getting_ready_time || "—",
+          ceremony_time:          payload.ceremony_time || "—",
+          glam_description:       payload.glam_description || "—",
+          allergies:              payload.allergies || "—",
+          additional_notes:       payload.additional_notes || "—",
+          selfie_url:             selfieUrl,
+          inspo_urls:             inspoUrls.length ? inspoUrls.join("\n") : "None provided",
+        });
+      } catch (emailError) {
+        console.error("EmailJS send failed (inquiry already saved to Supabase):", emailError);
+      }
+    } else {
+      console.warn("EmailJS not available — email notification skipped. Inquiry saved to Supabase.");
     }
 
     localStorage.setItem(`submitted-${dedupeKey}`, new Date().toISOString());
