@@ -139,30 +139,41 @@ form.addEventListener("submit", async (event) => {
       throw dbError;
     }
 
-    // Send email notification via Supabase Edge Function → Resend.
+     // Send email notification via Supabase Edge Function → Resend.
     // Non-fatal: inquiry is already saved in Supabase if this fails.
     try {
-      await fetch("https://jdmzhqneamuzcfnzdyui.supabase.co/functions/v1/send-inquiry-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name:                 payload.full_name,
-          email:                payload.email,
-          event_date:           payload.event_date,
-          venue:                payload.venue,
-          service_requested:    payload.service_type,
-          party_size:           [
-            payload.makeup_count ? `Makeup: ${payload.makeup_count}` : null,
-            payload.hair_count   ? `Hair: ${payload.hair_count}`   : null,
-          ].filter(Boolean).join(", ") || null,
-          describe_your_vision: payload.glam_description || null,
-          additional_notes:     payload.additional_notes || null,
-        }),
-      });
+      await fetch(
+        "https://jdmzhqneamuzcfnzdyui.supabase.co/functions/v1/send-inquiry-email",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+          },
+          body: JSON.stringify({
+            name: payload.full_name,
+            email: payload.email,
+            phone: formData.get("phone") || "",
+            event_date: payload.event_date,
+            venue: payload.venue,
+            service_requested: payload.service_type,
+            party_size: [
+              payload.makeup_count ? `Makeup: ${payload.makeup_count}` : null,
+              payload.hair_count ? `Hair: ${payload.hair_count}` : null
+            ].filter(Boolean).join(", ") || "",
+            describe_your_vision: payload.glam_description || "",
+            additional_notes: payload.additional_notes || ""
+          })
+        }
+      );
+
+      console.log("Inquiry email sent");
     } catch (emailError) {
-      console.error("Edge Function email failed (inquiry already saved to Supabase):", emailError);
+      console.error(
+        "Edge Function email failed (inquiry already saved to Supabase):",
+        emailError
+      );
     }
 
     localStorage.setItem(`submitted-${dedupeKey}`, new Date().toISOString());
