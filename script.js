@@ -11,7 +11,8 @@ function setStatus(message, type = "") {
 function buildPath(prefix, file) {
   const rawExt = (file.name.includes(".") ? file.name.split(".").pop() : "") || "";
   const typeExt = (file.type || "").split("/").pop() || "";
-  const ext = (rawExt || typeExt || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const normalizedExt = (rawExt || typeExt || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const ext = normalizedExt || "jpg";
   return `${prefix}/${Date.now()}-${crypto.randomUUID()}.${ext}`;
 }
 
